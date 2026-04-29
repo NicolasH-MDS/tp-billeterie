@@ -20,6 +20,7 @@ function createConcert({id, artist, date, location, nb_seats}){
         throw new Error("nb_seats must be greater than 0");
     }
     //Validation...
+    //Valider la date !
 
     //L'objet est initialisé dans un état valide.
     return new Concert(id, artist, date, location, nb_seats);

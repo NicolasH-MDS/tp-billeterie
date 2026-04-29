@@ -3,6 +3,8 @@
  * Voir la spécification HAL (RFC, source) : https://datatracker.ietf.org/doc/html/draft-kelly-json-hal
  */
 
+const paginate = require('./paginate');
+
 /**
  * Retourne un Link Object
  * @param {*} url
@@ -37,15 +39,16 @@ function listeConcertsToResourceObject(concerts, baseUrl) {
   return {
     _links: [
       {
-        self: halLinkObject(baseUrl + "/concerts", "string"),
+        self: halLinkObject(baseUrl + `/concerts{?offset=0&limit=${paginate.LIMIT_DEFAULT}`, "string", true),
         current_page : '??',
         next_page: '??',
         prev_page: '??'
       },
     ],
     _embedded: concerts.map((c) => concertItemListToResourceObject(c, baseUrl)),
+
     //Données propres à la liste
-    nb_concerts: concerts.length,
+    total_items: concerts.length,
     created_at: new Date(),
   };
 }
