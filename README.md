@@ -2,6 +2,8 @@
 
 - [Billeterrie](#billeterrie)
   - [Lancer le projet](#lancer-le-projet)
+  - [(Re)Générer la documentation OpenAPI](#regénérer-la-documentation-openapi)
+  - [Accéder à la documentation OpenAPI](#accéder-à-la-documentation-openapi)
   - [Tester avec cURL et jq](#tester-avec-curl-et-jq)
   - [Cahier des charges (spécifications)](#cahier-des-charges-spécifications)
     - [Méthodologie employée pour concevoir et implémenter l'API REST](#méthodologie-employée-pour-concevoir-et-implémenter-lapi-rest)
@@ -14,6 +16,16 @@
 npm i
 npm run dev
 ~~~
+
+## (Re)Générer la documentation OpenAPI
+
+~~~
+npm run build-oad
+~~~
+
+## Accéder à la documentation OpenAPI
+
+La documentation OpenAPI est servie sur l'URL `/doc` en environnement de developement.
 
 ## Tester avec cURL et jq
 

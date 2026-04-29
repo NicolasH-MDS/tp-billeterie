@@ -4,6 +4,9 @@ const concertRepository = require("../../repository/concertRepository");
 const hal = require("../../service/hal");
 const pagination = require("../../service/paginate");
 
+
+ // #swagger.tags = ['Concerts']
+
 /**
  * GET /concerts
  * Retourne la liste des concerts à venir
@@ -66,7 +69,7 @@ function all(req, res, next) {
   );
 
   const hasNext = query.offset + query.limit < upcoming_concerts.length;
-  const hasPrev = query.offset - query.limit > 0;
+  const hasPrev = query.offset > 0;
 
   const current_url = `${req.baseUrl}?offset=${query.offset}&limit=${query.limit}`;
   const next_url = hasNext
