@@ -38,6 +38,9 @@ function listeConcertsToResourceObject(concerts, baseUrl) {
     _links: [
       {
         self: halLinkObject(baseUrl + "/concerts", "string"),
+        current_page : '??',
+        next_page: '??',
+        prev_page: '??'
       },
     ],
     _embedded: concerts.map((c) => concertItemListToResourceObject(c, baseUrl)),

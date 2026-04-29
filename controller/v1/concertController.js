@@ -2,6 +2,7 @@
 
 const concertRepository = require("../../repository/concertRepository");
 const hal = require("../../service/hal");
+const pagination = require("../../service/paginate");
 
 /**
  * GET /concerts
@@ -11,6 +12,38 @@ const hal = require("../../service/hal");
  * @param {*} next
  */
 function all(req, res, next) {
+  //Important : Toujours valider les paramètres d'URL (clé et valeur) !
+
+  //Déclarer les paramètres d'URL acceptés
+  const paginateEnum = ["offset", "limit"];
+
+  //Comportement par défaut
+  let query = {
+    offset: 0,
+    limit: pagination.LIMIT_DEFAULT,
+    // sort_by, sort_order, filter_by
+  };
+
+  //Validation des paramètres d'URL
+  if ("offset" in req.query && paginateEnum.includes("offset")) {
+    //offset : doit être un entier, positif ou nul
+    const offset = Number.parseInt(req.query.offset, 10);
+    if (!isNaN(offset) && offset > -1) {
+      //Met a jour les paramètres par défaut.
+      query.offset = req.query.offset;
+    }
+  }
+
+  //Validation des paramètres d'URL
+  if ("limit" in req.query && paginateEnum.includes("limit")) {
+    //limit : doit être un entier positif
+    const offset = Number.parseInt(req.query.offset, 10);
+    if (!isNaN(limit) && limit > 0 && limit < pagination.LIMIT_MAX) {
+      //Met a jour les paramètres par défaut.
+      query.limit = req.query.limit;
+    }
+  }
+
   //1. Appeller le repository pour récupérer les données
   const concerts = concertRepository.all();
 
@@ -25,11 +58,9 @@ function all(req, res, next) {
     return new Date(a.date).getTime() - new Date(b.date).getTime();
   });
 
-  /*
-    Paginer résultats
-  */
+  //Paginer les résultats
+  //Remarque : A déplacer en base de données
 
-  
   const response = hal.listeConcertsToResourceObject(
     upcoming_concerts,
     req.baseUrl,
