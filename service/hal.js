@@ -2,9 +2,7 @@
  * Fonctions pour présenter les données suivant la spécification HAL
  * Voir la spécification HAL (RFC, source) : https://datatracker.ietf.org/doc/html/draft-kelly-json-hal
  */
-
 const paginate = require('./paginate');
-
 /**
  * Retourne un Link Object
  * @param {*} url

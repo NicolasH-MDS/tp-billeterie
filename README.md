@@ -1,5 +1,13 @@
 # Billeterrie
 
+- [Billeterrie](#billeterrie)
+  - [Lancer le projet](#lancer-le-projet)
+  - [Tester avec cURL et jq](#tester-avec-curl-et-jq)
+  - [Cahier des charges (spécifications)](#cahier-des-charges-spécifications)
+    - [Méthodologie employée pour concevoir et implémenter l'API REST](#méthodologie-employée-pour-concevoir-et-implémenter-lapi-rest)
+  - [Ressources utiles](#ressources-utiles)
+    - [Schémas utilisés](#schémas-utilisés)
+
 ## Lancer le projet
 
 ~~~bash
@@ -10,17 +18,40 @@ npm run dev
 ## Tester avec cURL et jq
 
 ~~~bash
-#point d'entrée de l'API
+#point d'entrée du service
 curl localhost:3000
+#filtrer uniquement le champ date (ligne)
+curl localhost:3000/v1/concerts | jq '._embedded.concerts[].date'
+#afficher le nombre de lignes (jq)
+curl localhost:3000/v1/concerts | jq '._embedded.concerts[].date' | jq -s 'length'
+#ou avec wc
+curl localhost:3000/v1/concerts | jq '._embedded.concerts[].date' | wc -l
+#filtrer les champs
+curl "localhost:3000/v1/concerts?offset=1&limit=3" | jq '._embedded.concerts[] | {artist, date}'
+#afficher uniquement les liens (pagination)
+curl "localhost:3000/v1/concerts?offset=1&limit=3" | jq '._links'
 ~~~
 
-## Spéicifications
+## Cahier des charges (spécifications)
 
-### Ressources
+[Accéder au cahier des charges](./cdc.md)
 
-#### La liste des concerts à venir
+### Méthodologie employée pour concevoir et implémenter l'API REST
 
+Nous reprenons la démarche générale, proposée par [Leonard Richardson](https://www.oreilly.com/pub/au/2556) et [Sam Ruby](https://en.wikipedia.org/wiki/Sam_Ruby)
 
+1. **Déterminer** l'ensemble de données
+2. **Décomposer** l'ensemble de données en ressource
+
+**Pour chaque type de ressource**:
+
+3. **Nommer** les ressources avec des URI
+4. **Implémenter** un sous-ensemble de l'interface uniforme (GET, POST, DELETE, PUT)
+5. **Étudier** la ou les représentations acceptées par les clients
+6. **Concevoir** la ou les représentations à mettre à disposition des clients
+7. **Intégrer** la ressource parmi celles qui existent déjà, en utilisant des hypermédias
+8. **Envisager** la progression typique des évènements: qu'est-ce qui est censé se produire ? [Le flux de contrôle standard comme le protocole de publication Atom](https://www.ibm.com/docs/fr/integration-designer/8.5.5?topic=formats-atom-feed-format) peut aider.
+9. **Considérer** les cas d'erreurs: qu'est-ce qui peut mal se passer ? Encore une fois, les flux de contrôle standard peuvent aider.
 
 ## Ressources utiles
 
