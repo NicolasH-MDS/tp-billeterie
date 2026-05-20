@@ -18,6 +18,9 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "swagger-autogen": "^2.23.7"
+    "eslint": "^10.4.0",
+    "jest": "^30.4.2",
+     "swagger-autogen": "^2.23.7",
+     "eslint": "^8.0.0"
   }
 }
