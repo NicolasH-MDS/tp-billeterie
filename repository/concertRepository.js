@@ -1,9 +1,9 @@
 //Couche d'abstraction sur les données
 
-"use strict";
+'use strict';
 
-const concerts = require("../data/db");
-const createConcert = require("../model/concert");
+const concerts = require('../data/db');
+const createConcert = require('../model/concert');
 
 /**
  * Retourne tous les concerts

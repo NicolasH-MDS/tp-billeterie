@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=developement node --watch index.js",
-    "gen-oad": "node gen-oad.js"
+    "gen-oad": "node gen-oad.js",
+    "validate": "eslint .",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
